@@ -1,12 +1,13 @@
 import requests
 import json
 
-API_key="YTBjMjc5OTUtMDdkYy00YWE2LTkxMTUtYzEzMjZkN2I3Yzkw"
-Workspace_id = "63592c1353c3f9136e440670"
-#Project_id = "Daily CLI reporter"
-test = f'https://reports.api.clockify.me/v1/workspaces/{Workspace_id}/reports/detailed'
+API_key="YTBjMjc5OTUtMDdkYy00YWE2LTkxMTUtYzEzMjZkN2I3Yzkw"#user API key
+Workspace_id = requests.get("https://api.clockify.me/api/v1/user", headers={'X-Api-Key': API_key}).json()['activeWorkspace']
+
+clock_url = f'https://reports.api.clockify.me/v1/workspaces/{Workspace_id}/reports/detailed'
+
 def get_summary_forum():
-    url = test
+    url = clock_url
     headers = {
         'X-Api-Key': API_key,
         'content-type': 'application/json',
@@ -24,8 +25,8 @@ def get_summary_forum():
         }
 
     response = requests.post(url, headers=headers, json=data)
-    json_responce = response.json()
-    return json_responce
+    json_response = response.json()
+    return json_response
 
 
 summary = get_summary_forum()
