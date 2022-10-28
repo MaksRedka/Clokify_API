@@ -33,7 +33,6 @@ def get_summary_forum():
 def detailed_report(data):
     keys_to_pop = ['_id', 'userId', 'billable', 'taskId', 'approvalRequestId', 'tags', 'projectId', 'isLocked', 'customFields', 'projectColor', 'rate', 'userEmail', 'clientId']
     df = pandas.DataFrame(data['timeentries'])
-    duration = []
     
     df = df.drop(keys_to_pop, axis=1)
     df['taskDuration'] = [el['timeInterval']['duration'] for el in data["timeentries"]]
