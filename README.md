@@ -9,5 +9,5 @@
 6. You need to change to variables **dateRangeStart** and **dateRangeEnd** and enter date in them in such format "2022-10-01T00:00:00" - "YYYY-MM-DD-THH:MM:SS"
 7. Just run script and you will get not grouped data
 
-You can change **clock_url** and **data** params as it describes in **https://clockify.me/developers-api**-clickify documentation
+You can change **clock_url** and **data** params as it describes in **https://clockify.me/developers-api-clickify** documentation
 
