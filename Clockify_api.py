@@ -1,5 +1,6 @@
 import requests
 import json
+import pandas
 
 API_key="YTBjMjc5OTUtMDdkYy00YWE2LTkxMTUtYzEzMjZkN2I3Yzkw"#user API key
 Workspace_id = requests.get("https://api.clockify.me/api/v1/user", headers={'X-Api-Key': API_key}).json()['activeWorkspace']
@@ -29,6 +30,17 @@ def get_summary_forum():
     return json_response
 
 
-summary = get_summary_forum()
-for i in summary["timeentries"]:
-    print(i, '\n')
+def detailed_report(data):
+    keys_to_pop = ['_id', 'userId', 'billable', 'taskId', 'approvalRequestId', 'tags', 'projectId', 'isLocked', 'customFields', 'projectColor', 'rate', 'userEmail', 'clientId']
+    df = pandas.DataFrame(data['timeentries'])
+    duration = []
+    
+    df = df.drop(keys_to_pop, axis=1)
+    df['taskDuration'] = [el['timeInterval']['duration'] for el in data["timeentries"]]
+    print(df)
+    df.to_csv('report.csv', sep=',', encoding='cp1251')
+
+
+if __name__ == "__main__":
+    summary = get_summary_forum()
+    detailed_report(summary)
